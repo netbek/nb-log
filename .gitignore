@@ -1,28 +1,30 @@
-# Patch/diff artifacts.
+# Patch/diff artifacts
 *.patch
 *.diff
 *.orig
 *.rej
 interdiff*.txt
-# emacs artifacts.
+# emacs artifacts
 *~
 \#*\#
 # VI swap file
 *.swp
-# Hidden files.
+# Hidden files
 .DS*
 .project
-# Windows links.
+# Windows links
 *.lnk
-# Temporary files.
+# Temporary files
 tmp*
-# Excludes for installed Drupal site
+# Drupal site
 sites/*/files/
 sites/*/settings.php
-# Exclude IDE's project directory
+# IDE project
 nbproject
 .idea
-# Exclude vendor directory
+# Vendor
 src/vendor/
-# Exclude Node modules directory
+# Node modules
 node_modules/
+# Bower components
+bower_components/
