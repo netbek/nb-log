@@ -366,6 +366,15 @@
 
 			return {
 				/**
+				 * Register an event callback
+				 *
+				 * @param {string} level
+				 * @param {function} fn
+				 */
+				$on: function (level, fn) {
+					nbLogConfig.on[level].push(fn);
+				},
+				/**
 				 * Write a log message
 				 *
 				 * @param {string} msg
