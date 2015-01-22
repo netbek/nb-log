@@ -1,6 +1,0 @@
-[submodule "vendor/nb-i18n"]
-	path = vendor/nb-i18n
-	url = https://github.com/netbek/nb-i18n.git
-[submodule "vendor/nb-moment"]
-	path = vendor/nb-moment
-	url = https://github.com/netbek/nb-moment.git
