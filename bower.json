@@ -25,6 +25,7 @@
 	},
 	"dependencies": {
 		"angular": "~1.2.28",
+		"merge": "master",
 		"nb-i18n": "https://github.com/netbek/nb-i18n.git#master",
 		"nb-moment": "https://github.com/netbek/nb-moment.git#master"
 	}
