@@ -48,7 +48,14 @@
 					url: undefined, // Endpoint URL
 					maxSize: 10 // Maximum number of messages in log
 				}
-			}
+			},
+			on: {
+				log: [],
+				debug: [],
+				info: [],
+				warn: [],
+				error: []
+			} // Array of event callbacks
 		};
 
 		return {
@@ -132,6 +139,10 @@
 				promise
 					.then(function () {
 						var promises = [];
+
+						angular.forEach(nbLogConfig.on[level], function (fn) {
+							fn(entry);
+						});
 
 						angular.forEach(nbLogConfig.logs, function (logConfig, logId) {
 							promises.push(logs[logId].emit(level, entry));
