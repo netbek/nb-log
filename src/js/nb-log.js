@@ -175,24 +175,24 @@
 					return undefined;
 				}
 
-				var name, message, stack, url;
+				var obj = {};
 
 				if (err instanceof Error) {
-					name = err.name;
-					message = err.toString();
-					stack = err.stack || '';
-					url = err.url || $window.location.href;
+					angular.forEach(err, function (value, key) {
+						obj[key] = value;
+					});
+
+					obj.name = err.name;
+					obj.message = err.toString();
+					obj.stack = err.stack || '';
+					obj.code = err.code;
+					obj.url = err.url || $window.location.href;
 				}
 				else {
-					message = err + '';
+					obj.message = err + '';
 				}
 
-				return {
-					name: name,
-					message: message,
-					stack: stack,
-					url: url
-				};
+				return obj;
 			}
 
 			/**
