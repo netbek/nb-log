@@ -120,9 +120,9 @@
 
 			/**
 			 *
-			 * @param {string} level
-			 * @param {string} msg
-			 * @param {object} err
+			 * @param {String} level
+			 * @param {String} msg
+			 * @param {Object} err
 			 * @returns {Promise}
 			 */
 			function emit (level, msg, err) {
@@ -171,7 +171,7 @@
 			/**
 			 *
 			 * @param {mixed} err
-			 * @returns {object|undefined}
+			 * @returns {Object|undefined}
 			 */
 			function buildError (err) {
 				if (!err) {
@@ -200,9 +200,9 @@
 
 			/**
 			 *
-			 * @param {string} level
-			 * @param {string} msg
-			 * @param {object} err
+			 * @param {String} level
+			 * @param {String} msg
+			 * @param {Object} err
 			 * @returns {Entry}
 			 */
 			function Entry (level, msg, err) {
@@ -214,7 +214,7 @@
 
 			/**
 			 *
-			 * @param {string} id
+			 * @param {String} id
 			 * @returns {Log}
 			 */
 			function Log (id) {
@@ -241,7 +241,7 @@
 
 			/**
 			 *
-			 * @param {string} level
+			 * @param {String} level
 			 * @param {Entry} entry
 			 * @returns {Promise}
 			 */
@@ -300,7 +300,7 @@
 
 			/**
 			 *
-			 * @param {string} level
+			 * @param {String} level
 			 * @param {Entry} entry
 			 * @returns {Promise}
 			 */
@@ -378,7 +378,7 @@
 
 			/**
 			 *
-			 * @param {string} level
+			 * @param {String} level
 			 * @param {Entry} entry
 			 * @returns {Promise}
 			 */
@@ -427,8 +427,8 @@
 				/**
 				 * Register an event callback
 				 *
-				 * @param {string} level
-				 * @param {function} fn
+				 * @param {String} level
+				 * @param {Function} fn
 				 */
 				$on: function (level, fn) {
 					nbLogConfig.on[level].push(fn);
@@ -436,7 +436,7 @@
 				/**
 				 * Write a log message
 				 *
-				 * @param {string} msg
+				 * @param {String} msg
 				 * @returns {Promise}
 				 */
 				log: function (msg) {
@@ -445,7 +445,7 @@
 				/**
 				 * Write a debug message
 				 *
-				 * @param {string} msg
+				 * @param {String} msg
 				 * @returns {Promise}
 				 */
 				debug: function (msg) {
@@ -454,7 +454,7 @@
 				/**
 				 * Write an information message
 				 *
-				 * @param {string} msg
+				 * @param {String} msg
 				 * @returns {Promise}
 				 */
 				info: function (msg) {
@@ -463,7 +463,7 @@
 				/**
 				 * Write a warning message (non-fatal)
 				 *
-				 * @param {string} msg
+				 * @param {String} msg
 				 * @returns {Promise}
 				 */
 				warn: function (msg) {
@@ -472,8 +472,8 @@
 				/**
 				 * Write an error message (fatal)
 				 *
-				 * @param {string} msg
-				 * @param {object} err
+				 * @param {String} msg
+				 * @param {Object} err
 				 * @returns {Promise}
 				 */
 				error: function (msg, err) {
