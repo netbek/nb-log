@@ -298,6 +298,48 @@
 
 			/**
 			 *
+			 * @param {string} level
+			 * @param {Entry} entry
+			 * @returns {Promise}
+			 */
+			ConsoleLog.prototype.emit = function (level, entry) {
+				var self = this;
+				var config = nbLogConfig.logs[this.id];
+				var d = $q.defer();
+
+				this.init()
+					.then(function () {
+						if (config.enabled && config.level && levels[level] >= levels[config.level]) {
+							if (self.entries.length >= config.maxSize) {
+								self.entries.shift();
+							}
+
+							self.entries.push(entry);
+
+							if (!nbLogConfig.delegate && console && level in console) {
+								if (level === 'error' && entry.err) {
+									console[level](entry.err);
+								}
+								else {
+									console[level](entry.msg);
+								}
+							}
+
+							d.resolve(nbI18N.t('Added entry to log `!logId`', {'!logId': self.id}));
+						}
+						else {
+							d.resolve();
+						}
+					})
+					.catch(function (err) {
+						d.reject(err);
+					});
+
+				return d.promise;
+			};
+
+			/**
+			 *
 			 * @returns {HttpLog}
 			 */
 			function HttpLog () {
