@@ -411,6 +411,18 @@
 
 			return {
 				/**
+				 * Returns entries for the specified log.
+				 *
+				 * @param {String} logId
+				 * @returns {Array}
+				 */
+				getEntries: function (logId) {
+					if (logId in logs) {
+						return logs[logId].entries;
+					}
+					return [];
+				},
+				/**
 				 * Register an event callback
 				 *
 				 * @param {string} level
