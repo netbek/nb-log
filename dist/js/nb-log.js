@@ -28,6 +28,7 @@
 
 	function nbLogConfig () {
 		var config = {
+			delegate: true, // Whether to call original $log function when logging a message
 			http_default_error: 'An error has occured. Please contact customer support for assistance.',
 			http_network_error: 'Unable to communicate with the server. Make sure you are connected to the internet and try again.',
 			levels: levels,
@@ -125,11 +126,13 @@
 			 * @returns {Promise}
 			 */
 			function emit (level, msg, err) {
-				if (level === 'error' && err) {
-					$delegate[level](err);
-				}
-				else {
-					$delegate[level](msg);
+				if (nbLogConfig.delegate) {
+					if (level === 'error' && err) {
+						$delegate[level](err);
+					}
+					else {
+						$delegate[level](msg);
+					}
 				}
 
 				var promise = init();
