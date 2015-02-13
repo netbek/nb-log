@@ -136,7 +136,7 @@
 				}
 
 				var promise = init();
-				var entry = new Entry(msg, err);
+				var entry = new Entry(level, msg, err);
 				var d = $q.defer();
 
 				promise
@@ -200,12 +200,14 @@
 
 			/**
 			 *
+			 * @param {string} level
 			 * @param {string} msg
 			 * @param {object} err
 			 * @returns {Entry}
 			 */
-			function Entry (msg, err) {
+			function Entry (level, msg, err) {
 				this.time = Moment().format();
+				this.level = level;
 				this.msg = msg;
 				this.err = buildError(err);
 			}
