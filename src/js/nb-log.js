@@ -61,7 +61,7 @@
 
 		return {
 			set: function (values) {
-				config = window.merge(true, config, values);
+				config = window.merge.recursive(true, config, values);
 			},
 			$get: function () {
 				return config;
