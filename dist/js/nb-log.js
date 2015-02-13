@@ -120,9 +120,9 @@
 
 			/**
 			 *
-			 * @param {string} level
-			 * @param {string} msg
-			 * @param {object} err
+			 * @param {String} level
+			 * @param {String} msg
+			 * @param {Object} err
 			 * @returns {Promise}
 			 */
 			function emit (level, msg, err) {
@@ -136,7 +136,7 @@
 				}
 
 				var promise = init();
-				var entry = new Entry(msg, err);
+				var entry = new Entry(level, msg, err);
 				var d = $q.defer();
 
 				promise
@@ -171,7 +171,7 @@
 			/**
 			 *
 			 * @param {mixed} err
-			 * @returns {object|undefined}
+			 * @returns {Object|undefined}
 			 */
 			function buildError (err) {
 				if (!err) {
@@ -200,19 +200,21 @@
 
 			/**
 			 *
-			 * @param {string} msg
-			 * @param {object} err
+			 * @param {String} level
+			 * @param {String} msg
+			 * @param {Object} err
 			 * @returns {Entry}
 			 */
-			function Entry (msg, err) {
+			function Entry (level, msg, err) {
 				this.time = Moment().format();
+				this.level = level;
 				this.msg = msg;
 				this.err = buildError(err);
 			}
 
 			/**
 			 *
-			 * @param {string} id
+			 * @param {String} id
 			 * @returns {Log}
 			 */
 			function Log (id) {
@@ -239,7 +241,7 @@
 
 			/**
 			 *
-			 * @param {string} level
+			 * @param {String} level
 			 * @param {Entry} entry
 			 * @returns {Promise}
 			 */
@@ -298,7 +300,7 @@
 
 			/**
 			 *
-			 * @param {string} level
+			 * @param {String} level
 			 * @param {Entry} entry
 			 * @returns {Promise}
 			 */
@@ -376,7 +378,7 @@
 
 			/**
 			 *
-			 * @param {string} level
+			 * @param {String} level
 			 * @param {Entry} entry
 			 * @returns {Promise}
 			 */
@@ -411,10 +413,22 @@
 
 			return {
 				/**
+				 * Returns entries for the specified log.
+				 *
+				 * @param {String} logId
+				 * @returns {Array}
+				 */
+				getEntries: function (logId) {
+					if (logId in logs) {
+						return logs[logId].entries;
+					}
+					return [];
+				},
+				/**
 				 * Register an event callback
 				 *
-				 * @param {string} level
-				 * @param {function} fn
+				 * @param {String} level
+				 * @param {Function} fn
 				 */
 				$on: function (level, fn) {
 					nbLogConfig.on[level].push(fn);
@@ -422,7 +436,7 @@
 				/**
 				 * Write a log message
 				 *
-				 * @param {string} msg
+				 * @param {String} msg
 				 * @returns {Promise}
 				 */
 				log: function (msg) {
@@ -431,7 +445,7 @@
 				/**
 				 * Write a debug message
 				 *
-				 * @param {string} msg
+				 * @param {String} msg
 				 * @returns {Promise}
 				 */
 				debug: function (msg) {
@@ -440,7 +454,7 @@
 				/**
 				 * Write an information message
 				 *
-				 * @param {string} msg
+				 * @param {String} msg
 				 * @returns {Promise}
 				 */
 				info: function (msg) {
@@ -449,7 +463,7 @@
 				/**
 				 * Write a warning message (non-fatal)
 				 *
-				 * @param {string} msg
+				 * @param {String} msg
 				 * @returns {Promise}
 				 */
 				warn: function (msg) {
@@ -458,8 +472,8 @@
 				/**
 				 * Write an error message (fatal)
 				 *
-				 * @param {string} msg
-				 * @param {object} err
+				 * @param {String} msg
+				 * @param {Object} err
 				 * @returns {Promise}
 				 */
 				error: function (msg, err) {
