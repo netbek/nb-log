@@ -20,11 +20,11 @@
 		"vendor"
 	],
 	"devDependencies": {
-		"angularjs": "~1.3.13",
-		"angular-mocks": "~1.3.13"
+		"angularjs": "1.2.x",
+		"angular-mocks": "1.2.x"
 	},
 	"dependencies": {
-		"angularjs": "~1.3.13",
+		"angularjs": "1.2.x",
 		"nb-i18n": "https://github.com/netbek/nb-i18n.git#master",
 		"nb-lodash": "https://github.com/netbek/nb-lodash.git#master",
 		"nb-moment": "https://github.com/netbek/nb-moment.git#master"
