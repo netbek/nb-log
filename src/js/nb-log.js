@@ -155,12 +155,12 @@
 							.then(function (data) {
 								d.resolve(data);
 							})
-							.catch(function (err) {
+							['catch'](function (err) {
 								d.reject(err);
 								$delegate.warn(err);
 							});
 					})
-					.catch(function (err) {
+					['catch'](function (err) {
 						d.reject(err);
 						$delegate.warn(err);
 					});
@@ -265,7 +265,7 @@
 							d.resolve();
 						}
 					})
-					.catch(function (err) {
+					['catch'](function (err) {
 						d.reject(err);
 					});
 
@@ -333,7 +333,7 @@
 							d.resolve();
 						}
 					})
-					.catch(function (err) {
+					['catch'](function (err) {
 						d.reject(err);
 					});
 
@@ -404,7 +404,7 @@
 							d.resolve();
 						}
 					})
-					.catch(function (err) {
+					['catch'](function (err) {
 						d.reject(err);
 					});
 
