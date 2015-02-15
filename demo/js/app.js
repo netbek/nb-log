@@ -16,6 +16,7 @@
 		.config(['nbLogConfigProvider',
 			function (nbLogConfigProvider) {
 				nbLogConfigProvider.set({
+					delegate: false,
 					logs: {
 						console: {
 							enabled: true
@@ -40,7 +41,9 @@
 		.controller('MainController', MainController)
 		.run(runBlock);
 
-	function MainController () {
+	MainController.$inject = ['$log'];
+	function MainController ($log) {
+		$log.info('hello world');
 	}
 
 	function runBlock () {
