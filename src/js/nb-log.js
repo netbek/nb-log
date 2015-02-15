@@ -12,6 +12,7 @@
 	angular
 		.module('nb.log', [
 			'nb.i18n',
+			'nb.lodash',
 			'nb.moment'
 		])
 		.factory('nbLog', nbLog)
@@ -61,7 +62,7 @@
 
 		return {
 			set: function (values) {
-				config = window.merge.recursive(true, config, values);
+				_.merge(config, values);
 			},
 			$get: function () {
 				return config;
@@ -72,7 +73,7 @@
 	nbLog.$inject = ['$injector', '$window', 'nbLogConfig'];
 	function nbLog ($injector, $window, nbLogConfig) {
 		return function ($delegate) {
-			var $httpBackend, $q, $timeout, Moment, nbI18N;
+			var $httpBackend, $q, $timeout, moment, nbI18N;
 			var logs = {};
 			var isInitialized = false; // Whether init() has been executed
 			var deferredInit;
@@ -88,7 +89,7 @@
 					$httpBackend = $injector.get('$httpBackend');
 					$q = $injector.get('$q');
 					$timeout = $injector.get('$timeout');
-					Moment = $injector.get('Moment');
+					moment = $injector.get('Moment');
 					nbI18N = $injector.get('nbI18N');
 
 					deferredInit = $q.defer();
@@ -97,13 +98,13 @@
 						var log;
 
 						if (logId == 'app') {
-							log = new AppLog;
+							log = new AppLog();
 						}
 						else if (logId == 'console') {
-							log = new ConsoleLog;
+							log = new ConsoleLog();
 						}
 						else if (logId == 'http') {
-							log = new HttpLog;
+							log = new HttpLog();
 						}
 						else {
 							return;
@@ -156,14 +157,14 @@
 								d.resolve(data);
 							})
 							['catch'](function (err) {
-								d.reject(err);
-								$delegate.warn(err);
-							});
+							d.reject(err);
+							$delegate.warn(err);
+						});
 					})
 					['catch'](function (err) {
-						d.reject(err);
-						$delegate.warn(err);
-					});
+					d.reject(err);
+					$delegate.warn(err);
+				});
 
 				return d.promise;
 			}
@@ -206,7 +207,7 @@
 			 * @returns {Entry}
 			 */
 			function Entry (level, msg, err) {
-				this.time = Moment().format();
+				this.time = moment().format();
 				this.level = level;
 				this.msg = msg;
 				this.err = buildError(err);
@@ -266,8 +267,8 @@
 						}
 					})
 					['catch'](function (err) {
-						d.reject(err);
-					});
+					d.reject(err);
+				});
 
 				return d.promise;
 			};
@@ -282,8 +283,7 @@
 				this.id = 'app';
 			}
 
-			AppLog.prototype = create(Log.prototype);
-			AppLog.prototype.constructor = AppLog;
+			AppLog.prototype = _.create(Log.prototype, {'constructor': AppLog});
 
 			/**
 			 *
@@ -295,8 +295,7 @@
 				this.id = 'console';
 			}
 
-			ConsoleLog.prototype = create(Log.prototype);
-			ConsoleLog.prototype.constructor = ConsoleLog;
+			ConsoleLog.prototype = _.create(Log.prototype, {'constructor': ConsoleLog});
 
 			/**
 			 *
@@ -334,8 +333,8 @@
 						}
 					})
 					['catch'](function (err) {
-						d.reject(err);
-					});
+					d.reject(err);
+				});
 
 				return d.promise;
 			};
@@ -350,8 +349,7 @@
 				this.id = 'http';
 			}
 
-			HttpLog.prototype = create(Log.prototype);
-			HttpLog.prototype.constructor = HttpLog;
+			HttpLog.prototype = _.create(Log.prototype, {'constructor': HttpLog});
 
 			/**
 			 *
@@ -405,8 +403,8 @@
 						}
 					})
 					['catch'](function (err) {
-						d.reject(err);
-					});
+					d.reject(err);
+				});
 
 				return d.promise;
 			};
@@ -505,30 +503,5 @@
 				return $q.reject(response);
 			}
 		};
-	}
-
-	/**
-	 * Object.create polyfill
-	 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
-	 */
-	var _create = (function () {
-		var Temp = function () {
-		};
-		return function (prototype) {
-			if (arguments.length > 1) {
-				throw Error('Second argument not supported');
-			}
-			if (typeof prototype != 'object') {
-				throw TypeError('Argument must be an object');
-			}
-			Temp.prototype = prototype;
-			var result = new Temp();
-			Temp.prototype = null;
-			return result;
-		};
-	})();
-
-	function create (proto) {
-		return Object.create == 'function' ? Object.create(proto) : _create(proto);
 	}
 })(window, window.angular);
