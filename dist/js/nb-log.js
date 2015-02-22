@@ -89,7 +89,7 @@
 					$httpBackend = $injector.get('$httpBackend');
 					$q = $injector.get('$q');
 					$timeout = $injector.get('$timeout');
-					moment = $injector.get('Moment');
+					moment = $injector.get('moment');
 					nbI18N = $injector.get('nbI18N');
 
 					deferredInit = $q.defer();
